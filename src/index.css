@@ -5,16 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color:beige;
 }
 
-img {
-  background-image: url("./jakob-rosen-KA1WM_yQGF8-unsplash.jpg");
-  background-size: 100%;
-  width: 600px;
-  height: 370px;
-  opacity: .8;
-  border-style: double;
-  background-repeat: no-repeat;
-  
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
