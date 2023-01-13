@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useParams} from 'react-router-dom'
+import Spinner from './Spinner'
 
-function AlbumView() {
+const AlbumView = () => {
     const { id } = useParams()
+    // const history = useHistory()
     const [ albumData, setAlbumData ] = useState([])
-    const navigate = useNavigate()
 
     useEffect(() => {
         const API_URL = `http://localhost:4000/song/${id}`
@@ -17,32 +17,31 @@ function AlbumView() {
         fetchData()
     }, [id])
 
-    const justSongs = albumData.filter(entry => entry.wrapperType === 'track')
-
-    const renderSongs = justSongs.map((song, i) => {
-        return (
-            <div key={i}>
-                <p>{song.trackName}</p>
-            </div>
-        )
-    })
-        
     const navButtons = () => {
-        return(
+        return (
             <div>
-                <button onClick={() => navigate(-1)}>Back</button>
-                |
-                <button onClick={() => navigate('/')}>Home</button>
+                <button onClick={() => {history.push('/')}}>Home</button> |
+                <button onClick={() => {history.goBack()}}>Back</button>
             </div>
         )
     }
 
+    const allSongs = albumData.filter(entity => entity.kind === 'song')
+    .map((album, i) => {
+        return (
+            <div key={i}>
+                {album.trackName}
+            </div>
+        )
+    })
+
     return (
         <div>
+            {albumData.length > 0 ? <h2>{albumData[0].collectionName}</h2> : <Spinner />}
             {navButtons()}
-            {renderSongs}
+            {allSongs}
         </div>
     )
 }
 
-export default AlbumView 
+export default AlbumView;
